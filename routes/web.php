@@ -13,9 +13,28 @@
 
 Route::group(['middleware' => ['get.menu']], function () {
     
-    Route::get('/', 'HomeController@index');
-
     Route::group(['middleware' => ['role:user']], function () {
+
+        Route::group(
+            [
+                'namespace' => 'sikap\v1',
+                'prefix' => 'sikap/v1'
+            ],
+            function () {
+                Route::get('/', 'Page@index');
+                Route::get('Data/getMainList', 'Data@getMainList');
+                Route::get('Data/getSubMainTableList/{main}', 'Data@getSubMainTableList');
+                Route::get('{any}', 'Page@main');
+                Route::get('{any}/process_create', 'Process@sub_main_add');
+                Route::get('{any}/process_delete', 'Process@sub_main_delete');
+                Route::get('{any}/{any2}', 'Page@sub');
+                Route::get('{any}/{any2}/update', 'Page@sub_update');
+                Route::get('{any}/{any2}/process_update', 'Process@sub_main_update');
+            }
+        );
+
+        Route::get('/', 'HomeController@index');
+
         Route::get('/colors', function () {
             return view('dashboard.colors');
         });

@@ -18,9 +18,10 @@ class MenusTableSeeder extends Seeder
     private $userRole = null;
     private $subFolder = '';
 
-    public function join($roles, $menusId){
+    public function join($roles, $menusId)
+    {
         $roles = explode(',', $roles);
-        foreach($roles as $role){
+        foreach ($roles as $role) {
             array_push($this->joinData, array('role_name' => $role, 'menus_id' => $menusId));
         }
     }
@@ -29,9 +30,10 @@ class MenusTableSeeder extends Seeder
         Function assigns menu elements to roles
         Must by use on end of this seeder
     */
-    public function joinAllByTransaction(){
+    public function joinAllByTransaction()
+    {
         DB::beginTransaction();
-        foreach($this->joinData as $data){
+        foreach ($this->joinData as $data) {
             DB::table('menu_role')->insert([
                 'role_name' => $data['role_name'],
                 'menus_id' => $data['menus_id'],
@@ -40,9 +42,10 @@ class MenusTableSeeder extends Seeder
         DB::commit();
     }
 
-    public function insertLink($roles, $name, $href, $icon = null){
+    public function insertLink($roles, $name, $href, $icon = null)
+    {
         $href = $this->subFolder . $href;
-        if($this->dropdown === false){
+        if ($this->dropdown === false) {
             DB::table('menus')->insert([
                 'slug' => 'link',
                 'name' => $name,
@@ -51,7 +54,7 @@ class MenusTableSeeder extends Seeder
                 'menu_id' => $this->menuId,
                 'sequence' => $this->sequence
             ]);
-        }else{
+        } else {
             DB::table('menus')->insert([
                 'slug' => 'link',
                 'name' => $name,
@@ -66,20 +69,21 @@ class MenusTableSeeder extends Seeder
         $lastId = DB::getPdo()->lastInsertId();
         $this->join($roles, $lastId);
         $permission = Permission::where('name', '=', $name)->get();
-        if(empty($permission)){
+        if (empty($permission)) {
             $permission = Permission::create(['name' => 'visit ' . $name]);
         }
         $roles = explode(',', $roles);
-        if(in_array('user', $roles)){
+        if (in_array('user', $roles)) {
             $this->userRole->givePermissionTo($permission);
         }
-        if(in_array('admin', $roles)){
+        if (in_array('admin', $roles)) {
             $this->adminRole->givePermissionTo($permission);
         }
         return $lastId;
     }
 
-    public function insertTitle($roles, $name){
+    public function insertTitle($roles, $name)
+    {
         DB::table('menus')->insert([
             'slug' => 'title',
             'name' => $name,
@@ -92,10 +96,11 @@ class MenusTableSeeder extends Seeder
         return $lastId;
     }
 
-    public function beginDropdown($roles, $name, $icon = ''){
-        if(count($this->dropdownId)){
+    public function beginDropdown($roles, $name, $icon = '')
+    {
+        if (count($this->dropdownId)) {
             $parentId = $this->dropdownId[count($this->dropdownId) - 1];
-        }else{
+        } else {
             $parentId = null;
         }
         DB::table('menus')->insert([
@@ -114,9 +119,10 @@ class MenusTableSeeder extends Seeder
         return $lastId;
     }
 
-    public function endDropdown(){
+    public function endDropdown()
+    {
         $this->dropdown = false;
-        array_pop( $this->dropdownId );
+        array_pop($this->dropdownId);
     }
 
     /**
@@ -125,71 +131,84 @@ class MenusTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    { 
+    {
         /* Get roles */
-        $this->adminRole = Role::where('name' , '=' , 'admin' )->first();
-        $this->userRole = Role::where('name', '=', 'user' )->first();
+        $this->adminRole = Role::where('name', '=', 'admin')->first();
+        $this->userRole = Role::where('name', '=', 'user')->first();
         /* Create Sidebar menu */
         DB::table('menulist')->insert([
             'name' => 'sidebar menu'
         ]);
         $this->menuId = DB::getPdo()->lastInsertId();  //set menuId
-        $this->insertLink('guest,user,role1,role2,role3,role4,role5', 'Dashboard', '/', 'cil-speedometer');
-        $this->beginDropdown('admin', 'Settings', 'cil-calculator');
-            $this->insertLink('admin', 'Notes',                   '/notes');
-            $this->insertLink('admin', 'Users',                   '/users');
-            $this->insertLink('admin', 'Edit menu',               '/menu/menu');
-            $this->insertLink('admin', 'Edit menu elements',      '/menu/element');
-            $this->insertLink('admin', 'Edit roles',              '/roles');
-            $this->insertLink('admin', 'Media',                   '/media');
-            $this->insertLink('admin', 'BREAD',                   '/bread');
-            $this->insertLink('admin', 'Email',                   '/mail');
-        $this->endDropdown();
+        $this->insertLink('guest,user,admin,role1,role2,role3,role4,role5', 'Dashboard', '/', 'cil-speedometer');
+
+        // $this->beginDropdown('admin', 'Settings', 'cil-calculator');
+        //     $this->insertLink('admin', 'Notes',                   '/notes');
+        //     $this->insertLink('admin', 'Users',                   '/users');
+        //     $this->insertLink('admin', 'Edit menu',               '/menu/menu');
+        //     $this->insertLink('admin', 'Edit menu elements',      '/menu/element');
+        //     $this->insertLink('admin', 'Edit roles',              '/roles');
+        //     $this->insertLink('admin', 'Media',                   '/media');
+        //     $this->insertLink('admin', 'BREAD',                   '/bread');
+        //     $this->insertLink('admin', 'Email',                   '/mail');
+        // $this->endDropdown();
+
         $this->insertLink('guest', 'Login', '/login', 'cil-account-logout');
         $this->insertLink('guest', 'Register', '/register', 'cil-account-logout');
-        $this->beginDropdown('role1', 'Intelijen', 'cil-pencil');
-        $this->insertLink('role1', 'Profil pengguna jasa', '/submenu');
-        $this->insertLink('role1', 'Data impor dan ekspor', '/submenu');
-        $this->insertLink('role1', 'Peta kerawanan BKC ilegal', '/submenu');
-        $this->insertLink('role1', 'Peta kerawanan lundup laut', '/submenu');
-        $this->insertLink('role1', 'Data pelabuhan dan bandara', '/submenu');
+
+        $this->insertTitle('admin', 'Seksi Penindakan dan Penyidikan');
+
+        $this->beginDropdown('role1,admin', 'Intelijen', 'cil-pencil');
+        $this->insertLink('role1,admin', 'Profil pengguna jasa', '/submenu');
+        $this->insertLink('role1,admin', 'Data impor dan ekspor', '/submenu');
+        $this->insertLink('role1,admin', 'Peta kerawanan BKC ilegal', '/submenu');
+        $this->insertLink('role1,admin', 'Peta kerawanan lundup laut', '/submenu');
+        $this->insertLink('role1,admin', 'Data pelabuhan dan bandara', '/submenu');
         $this->endDropdown();
 
-        $this->beginDropdown('role1', 'Penindakan', 'cil-pencil');
-        $this->insertLink('role1', 'Penindakan BKC ilegal', '/submenu');
-        $this->insertLink('role1', 'Pemeriksaan kapal', '/submenu');
-        $this->insertLink('role1', 'Patroli', '/submenu');
-        $this->insertLink('role1', 'Sarana operasi', '/submenu');
-        $this->insertLink('role1', 'Penyegelan', '/submenu');
+        $this->beginDropdown('role1,admin', 'Penindakan', 'cil-pencil');
+        $this->insertLink('role1,admin', 'Penindakan BKC ilegal', '/submenu');
+        $this->insertLink('role1,admin', 'Pemeriksaan kapal', '/submenu');
+        $this->insertLink('role1,admin', 'Patroli', '/submenu');
+        $this->insertLink('role1,admin', 'Sarana operasi', '/submenu');
+        $this->insertLink('role1,admin', 'Penyegelan', '/submenu');
         $this->endDropdown();
 
-        $this->beginDropdown('role1', 'Penyidikan', 'cil-pencil');
-        $this->insertLink('role1', 'Perkembangan penyidikan', '/submenu');
-        $this->insertLink('role1', 'Tindak lanjut penindakan', '/submenu');
-        $this->insertLink('role1', 'Pengelolaan BHP', '/submenu');
+        $this->beginDropdown('role1,admin', 'Penyidikan', 'cil-pencil');
+        $this->insertLink('role1,admin', 'Perkembangan penyidikan', '/submenu');
+        $this->insertLink('role1,admin', 'Tindak lanjut penindakan', '/submenu');
+        $this->insertLink('role1,admin', 'Pengelolaan BHP', '/submenu');
         $this->endDropdown();
 
-        $this->beginDropdown('role1', 'Narkotika', 'cil-pencil');
-        $this->insertLink('role1', 'Peta kerawanan (landing spot)', '/submenu');
-        $this->insertLink('role1', 'Data PJT', '/submenu');
-        $this->insertLink('role1', 'Kapal nelayan', '/submenu');
+        $this->beginDropdown('role1,admin', 'Narkotika', 'cil-pencil');
+        $this->insertLink('role1,admin', 'Peta kerawanan (landing spot)', '/submenu');
+        $this->insertLink('role1,admin', 'Data PJT', '/submenu');
+        $this->insertLink('role1,admin', 'Kapal nelayan', '/submenu');
         $this->endDropdown();
 
+        $this->insertTitle('role2,admin', 'Seksi Perbendaharaan');
+        $this->beginDropdown('role2,admin', 'SIKAP', 'cil-pencil');
+        $this->insertLink('role2,admin', 'V1', '/sikap/v1');
+        $this->endDropDown();
 
 
-        $this->beginDropdown('role3', 'Manifes', 'cil-pencil');
-        $this->insertLink('role3', 'Inward Manifes', '/submenu');
-        $this->insertLink('role3', 'Outward Manifes', '/submenu');
+        $this->insertTitle('admin', 'Seksi Perbendaharaan');
+
+        $this->beginDropdown('role3,admin', 'Manifes', 'cil-pencil');
+        $this->insertLink('role3,admin', 'Inward Manifes', '/submenu');
+        $this->insertLink('role3,admin', 'Outward Manifes', '/submenu');
         $this->endDropdown();
 
-        $this->beginDropdown('role3', 'Penerimaan', 'cil-pencil');
-        $this->insertLink('role3', 'Realisasi Penerimaan Bea Masuk', '/submenu');
-        $this->insertLink('role3', 'Realisasi Penerimaan Bea Keluar', '/submenu');
+        $this->beginDropdown('role3,admin', 'Penerimaan', 'cil-pencil');
+        $this->insertLink('role3,admin', 'Realisasi Penerimaan Bea Masuk', '/submenu');
+        $this->insertLink('role3,admin', 'Realisasi Penerimaan Bea Keluar', '/submenu');
         $this->endDropdown();
 
-        $this->insertLink('role4', 'BMN', '/menu');
+        $this->insertTitle('admin', 'Seksi Pelayanan Kepabeanan dan Cukai dan Dukungan Teknis');
+        $this->insertLink('role4,admin', 'BMN', '/menu');
 
-        $this->insertLink('role5', 'Aset', '/menu');
+        $this->insertTitle('admin', 'Subbagian umum');
+        $this->insertLink('role5,admin', 'Aset', '/menu');
 
 
         /* Create top menu */

@@ -102,7 +102,7 @@ class UsersAndNotesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'menuroles' => 'user,admin'
+            'menuroles' => 'admin,user'
         ]);
         $user->assignRole('admin');
         $user->assignRole('user');
@@ -113,7 +113,7 @@ class UsersAndNotesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'menuroles' => 'role1, user'
+            'menuroles' => 'role1,user'
         ]);
         $user->assignRole('role1');
         $user->assignRole('user');
@@ -124,7 +124,7 @@ class UsersAndNotesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'menuroles' => 'role2, user'
+            'menuroles' => 'role2,user'
         ]);
         $user->assignRole('role2');
         $user->assignRole('user');
@@ -135,7 +135,7 @@ class UsersAndNotesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'menuroles' => 'role3, user'
+            'menuroles' => 'role3,user'
         ]);
         $user->assignRole('role3');
         $user->assignRole('user');
@@ -146,7 +146,7 @@ class UsersAndNotesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'menuroles' => 'role4, user'
+            'menuroles' => 'role4,user'
         ]);
         $user->assignRole('role4');
         $user->assignRole('user');
@@ -157,7 +157,7 @@ class UsersAndNotesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'menuroles' => 'role5, user'
+            'menuroles' => 'role5,user'
         ]);
         $user->assignRole('role5');
         $user->assignRole('user');
