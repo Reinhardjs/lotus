@@ -48,9 +48,6 @@ class Page extends Controller
 
     public function sub($main, $sub)
     {
-        view("sikap.base.header");
-        view("sikap.base.sidebar");
-
         if ($sub == "create") {
 
             // Create
@@ -67,8 +64,7 @@ class Page extends Controller
                 "tabel_list" => $tabel_list
             );
 
-            view("sikap.v1.sub_main.read", $data);
-            view("sikap.base.v1.footer");
+            return view("sikap.v1.sub_main.read", $data);
         }
     }
 
@@ -86,9 +82,6 @@ class Page extends Controller
 
     public function sub_update($main, $sub)
     {
-        view("sikap.base.header");
-        view("sikap.base.sidebar");
-
         $row = PageModel::getSub($main, $sub);
         $data_tabel = PageModel::getTabel($main, $sub);
         $tabel_list = PageModel::getTabelList($main, $sub);
@@ -100,6 +93,6 @@ class Page extends Controller
             "tabel_list" => $tabel_list
         );
 
-        view("sikap.v1.sub_main.update", $data);
+        return view("sikap.v1.sub_main.update", $data);
     }
 }

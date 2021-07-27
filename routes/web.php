@@ -29,7 +29,7 @@ Route::group(['middleware' => ['get.menu']], function () {
                 Route::get('{any}/process_delete', 'Process@sub_main_delete');
                 Route::get('{any}/{any2}', 'Page@sub');
                 Route::get('{any}/{any2}/update', 'Page@sub_update');
-                Route::get('{any}/{any2}/process_update', 'Process@sub_main_update');
+                Route::post('{any}/{any2}/process_update', 'Process@sub_main_update');
             }
         );
 
