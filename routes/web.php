@@ -12,13 +12,13 @@
 */
 
 Route::group(['middleware' => ['get.menu']], function () {
-    
+
     Route::group(['middleware' => ['role:user']], function () {
 
         Route::group(
             [
+                'prefix' => 'sikap/v1',
                 'namespace' => 'sikap\v1',
-                'prefix' => 'sikap/v1'
             ],
             function () {
                 Route::get('/', 'Page@index');
@@ -30,6 +30,30 @@ Route::group(['middleware' => ['get.menu']], function () {
                 Route::get('{any}/{any2}', 'Page@sub');
                 Route::get('{any}/{any2}/update', 'Page@sub_update');
                 Route::post('{any}/{any2}/process_update', 'Process@sub_main_update');
+            }
+        );
+
+        Route::group(
+            [
+                'prefix' => 'crud',
+                'namespace' => 'basic',
+            ],
+            function () {
+                Route::post('process_add', 'CrudController@process_add');
+                Route::post('process_update', 'CrudController@process_update');
+                Route::post('process_delete', 'CrudController@process_delete');
+            }
+        );
+
+        Route::group(
+            [
+                'prefix' => 'intelijen',
+                'namespace' => 'pages\intelijen',
+            ],
+            function () {
+                Route::get('/profil_pengguna_jasa', 'ProfilPenggunaJasaController@index');
+                Route::get('/profil_pengguna_jasa/create', 'ProfilPenggunaJasaController@create');
+                Route::get('/profil_pengguna_jasa/{any}/update', 'ProfilPenggunaJasaController@update');
             }
         );
 
@@ -144,6 +168,7 @@ Route::group(['middleware' => ['get.menu']], function () {
         });
         Route::resource('notes', 'NotesController');
     });
+
     Auth::routes();
 
     Route::resource('resource/{table}/resource', 'ResourceController')->names([
