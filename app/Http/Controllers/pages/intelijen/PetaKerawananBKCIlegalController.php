@@ -5,11 +5,11 @@ namespace App\Http\Controllers\pages\intelijen;;
 use App\Http\Controllers\Controller;
 use App\Models\basic\CrudModel;
 
-class ProfilPenggunaJasaController extends Controller
+class PetaKerawananBKCIlegalController extends Controller
 {
 
     public $sub_name = "intelijen";
-    public $table_name = "profil_pengguna_jasa";
+    public $table_name = "peta_kerawanan_bkc_ilegal";
 
     /**
      * Create a new controller instance.

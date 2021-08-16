@@ -57,6 +57,18 @@ Route::group(['middleware' => ['get.menu']], function () {
             }
         );
 
+        Route::group(
+            [
+                'prefix' => 'intelijen',
+                'namespace' => 'pages\intelijen',
+            ],
+            function () {
+                Route::get('/peta_kerawanan_bkc_ilegal', 'PetaKerawananBKCIlegalController@index');
+                Route::get('/peta_kerawanan_bkc_ilegal/create', 'PetaKerawananBKCIlegalController@create');
+                Route::get('/peta_kerawanan_bkc_ilegal/{any}/update', 'PetaKerawananBKCIlegalController@update');
+            }
+        );
+
         Route::get('/', 'HomeController@index');
 
         Route::get('/colors', function () {

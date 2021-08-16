@@ -5,6 +5,9 @@ namespace App\Http\Controllers\basic;
 use App\Http\Controllers\Controller;
 use App\Models\basic\CrudModel;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 class CrudController extends Controller
 {
 
@@ -33,7 +36,7 @@ class CrudController extends Controller
         echo json_encode($response);
     }
 
-    public function process_add()
+    public function process_add(Request $request)
     {
         $data = array();
         $response = array();
@@ -44,6 +47,17 @@ class CrudController extends Controller
         unset($data["table_name"]);
 
         $table_name = $_POST["table_name"];
+
+        if ($request->hasFile('img_url')) {
+            //  Let's do everything here
+            if ($request->file('img_url')->isValid()) {
+                $extension = $request->img_url->extension();
+                $request->img_url->storeAs('/public/images', date("d-m-Y") . "-" . time() . "." . $extension);
+                // $url = Storage::url("file-name" . "." . $extension);
+                $url = asset('storage/images/' . date("d-m-Y") . "-" . time() . "." . $extension);
+                $data["img_url"] = $url;
+            }
+        }
 
         if (CrudModel::add($table_name, $data) > -1) {
             $response["success"] = true;
@@ -56,7 +70,7 @@ class CrudController extends Controller
         echo json_encode($response);
     }
 
-    public function process_update()
+    public function process_update(Request $request)
     {
         $data = array();
         $response = array();
@@ -72,6 +86,24 @@ class CrudController extends Controller
         $where = array(
             "id" => $id
         );
+
+        if ($request->hasFile('img_url')) {
+            //  Let's do everything here
+            if ($request->file('img_url')->isValid()) {
+
+                $url = CrudModel::getRow($table_name, array("id" => $id))->img_url;
+                $url_var = explode('/', $url);
+                $last_path = end($url_var);
+                Storage::delete("public/images/$last_path");
+
+
+                $extension = $request->img_url->extension();
+                $request->img_url->storeAs('/public/images', date("d-m-Y") . "-" . time() . "." . $extension);
+                // $url = Storage::url("file-name" . "." . $extension);
+                $url = asset('storage/images/' . date("d-m-Y") . "-" . time() . "." . $extension);
+                $data["img_url"] = $url;
+            }
+        }
 
         if (CrudModel::update($table_name, $data, $where) > -1) {
             $response["success"] = true;
