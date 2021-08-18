@@ -12,7 +12,7 @@
                     <div class="row">
                         <h3 class="col"><?= $row->judul ?></h3>
                         <div class="col">
-                            <a href="<?= url("/sikap/v1/{$row->main}/{$row->sub}/update") ?>" class="btn btn-primary" style="float: right">
+                            <a href="<?= url("/kinerja/dashboard/{$row->main}/{$row->sub}/update") ?>" class="btn btn-primary" style="float: right">
                                 Ubah
                             </a>
                         </div>

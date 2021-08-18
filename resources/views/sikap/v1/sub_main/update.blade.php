@@ -168,7 +168,7 @@
     // process the form
     $.ajax({
             type: 'GET',
-            url: "<?= url('/sikap/v1/Data/getMainList') ?>",
+            url: "<?= url('/kinerja/dashboard/Data/getMainList') ?>",
             dataType: 'json', // what type of data do we expect back from the serverss
             processData: false,
             contentType: false,
@@ -233,7 +233,7 @@
 
         $.ajax({
                 type: 'GET',
-                url: "<?= url('/sikap/v1/Data/getSubMainTableList') ?>/" + value,
+                url: "<?= url('/kinerja/dashboard/Data/getSubMainTableList') ?>/" + value,
                 dataType: 'json', // what type of data do we expect back from the serverss
                 processData: false,
                 contentType: false,
@@ -266,7 +266,7 @@
         $('.help-block').remove(); // remove the error text
         $('.alert-success').remove();
 
-        var formUrl = "<?= url("/sikap/v1/{$row->main}/{$row->sub}/process_update") ?>";
+        var formUrl = "<?= url("/kinerja/dashboard/{$row->main}/{$row->sub}/process_update") ?>";
         var data = new FormData(this);
         data.append("_token", "{{ csrf_token() }}");
 
@@ -307,7 +307,7 @@
 
                     setTimeout(function() {
                         window.location.href =
-                            "<?= url("/sikap/v1/{$row->main}/{$row->sub}") ?>"; //will redirect to any page
+                            "<?= url("/kinerja/dashboard/{$row->main}/{$row->sub}") ?>"; //will redirect to any page
                     }, 2500); //will call the function after 2.5 secs.
 
                 }

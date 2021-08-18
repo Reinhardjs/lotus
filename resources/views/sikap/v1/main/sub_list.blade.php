@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-sm-5">
                     <ol class="float-sm-right">
-                        <a href="<?= url('/sikap/v1/' . "$main/create") ?>" type="button" class="btn btn-primary"> Tambah <i class="fas fa-plus"></i></a>
+                        <a href="<?= url('/kinerja/dashboard/' . "$main/create") ?>" type="button" class="btn btn-primary"> Tambah <i class="fas fa-plus"></i></a>
                     </ol>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                     ?>
 
                     <div class="col-6 col-md-3 mb-4 text-center">
-                        <div class="knob-label"><b><a href='<?= url('/sikap/v1/' . $row->main . '/' . $row->sub) ?>'><?= $row->nama_iku ?></b></a>
+                        <div class="knob-label"><b><a href='<?= url('/kinerja/dashboard/' . $row->main . '/' . $row->sub) ?>'><?= $row->nama_iku ?></b></a>
                         </div>
                         <input type="text" class="knob" value="<?= $capaian ?>" data-min="0" data-max="120" data-width="90" data-height="90" data-fgColor="<?= $random_color ?>" readonly>
 
