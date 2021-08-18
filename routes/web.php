@@ -17,8 +17,8 @@ Route::group(['middleware' => ['get.menu']], function () {
 
         Route::group(
             [
-                'prefix' => 'sikap/v1',
-                'namespace' => 'sikap\v1',
+                'prefix' => 'kinerja/dashboard',
+                'namespace' => 'kinerja\dashboard',
             ],
             function () {
                 Route::get('/', 'Page@index');
@@ -30,6 +30,26 @@ Route::group(['middleware' => ['get.menu']], function () {
                 Route::get('{any}/{any2}', 'Page@sub');
                 Route::get('{any}/{any2}/update', 'Page@sub_update');
                 Route::post('{any}/{any2}/process_update', 'Process@sub_main_update');
+            }
+        );
+
+        Route::group(
+            [
+                'prefix' => 'kinerja/indikator_kerja_utama',
+                'namespace' => 'kinerja\indikator_kerja_utama',
+            ],
+            function () {
+                Route::get('/', 'Page@index');
+            }
+        );
+
+        Route::group(
+            [
+                'prefix' => 'kinerja/analisis_iku',
+                'namespace' => 'kinerja\analisis_iku',
+            ],
+            function () {
+                Route::get('/', 'Page@index');
             }
         );
 

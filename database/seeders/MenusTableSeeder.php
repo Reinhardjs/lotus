@@ -159,9 +159,9 @@ class MenusTableSeeder extends Seeder
         $this->insertTitle('admin', 'Seksi Penindakan dan Penyidikan');
 
         $this->beginDropdown('role1,admin', 'Intelijen', 'cil-pencil');
-        $this->insertLink('role1,admin', 'Profil pengguna jasa', '/submenu');
+        $this->insertLink('role1,admin', 'Profil pengguna jasa', '/intelijen/profil_pengguna_jasa');
         $this->insertLink('role1,admin', 'Data impor dan ekspor', '/submenu');
-        $this->insertLink('role1,admin', 'Peta kerawanan BKC ilegal', '/submenu');
+        $this->insertLink('role1,admin', 'Peta kerawanan BKC ilegal', '/intelijen/peta_kerawanan_bkc_ilegal');
         $this->insertLink('role1,admin', 'Peta kerawanan lundup laut', '/submenu');
         $this->insertLink('role1,admin', 'Data pelabuhan dan bandara', '/submenu');
         $this->endDropdown();
@@ -186,9 +186,11 @@ class MenusTableSeeder extends Seeder
         $this->insertLink('role1,admin', 'Kapal nelayan', '/submenu');
         $this->endDropdown();
 
-        $this->insertTitle('role2,admin', 'Seksi Perbendaharaan');
-        $this->beginDropdown('role2,admin', 'SIKAP', 'cil-pencil');
-        $this->insertLink('role2,admin', 'V1', '/sikap/v1');
+        $this->insertTitle('role2,admin', 'Seksi Kepatuhan Internal dan Penyidikan');
+        $this->beginDropdown('role2,admin', 'Kinerja', 'cil-pencil');
+        $this->insertLink('role2,admin', 'Dashboard', '/kinerja/dashboard');
+        $this->insertLink('role2,admin', 'Indikator Kerja Utama', '/kinerja/indikator_kerja_utama');
+        $this->insertLink('role2,admin', 'Analisis IKU', '/kinerja/analisis_iku');
         $this->endDropDown();
 
 

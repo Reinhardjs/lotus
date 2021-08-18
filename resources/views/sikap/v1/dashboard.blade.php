@@ -4,11 +4,11 @@
 
     <div class="container-fluid">
         <div class="fade-in">
-            <div class="row mb-4">
+            <!-- <div class="row mb-4">
                 <div class="col-sm-8">
                     <h1>Sistem Informasi Kepatuhan Internal dan Penyuluhan KPPBC TMP C Meulaboh</h1>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <a href="<?= url('sikap/v1/nko2018') ?>">

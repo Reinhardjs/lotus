@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\sikap\v1;
+namespace App\Http\Controllers\kinerja\dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\sikap\DataModel;
