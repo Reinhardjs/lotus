@@ -2,13 +2,24 @@
 
 @section('content')
 <div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-sm-10">
+            <h1>Intelijen</h1>
+        </div>
+        <div class="col-sm-2">
+            <a href="<?= Request::url() ?>/nko2021">
+                <button class="btn btn-primary">
+                    Tambah Data
+                </button>
+            </a>
+        </div>
+    </div>
     <div class="fade-in">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">Indikator Kerja Utama
-                        {{-- <div class="card-header-actions"><a class="card-header-action" href="http://www.chartjs.org"
-                                target="_blank"><small class="text-muted">docs</small></a></div> --}}
+                        <div class="card-header-actions"><a class="card-header-action" href="http://www.chartjs.org" target="_blank"><small class="text-muted">docs</small></a></div>
                     </div>
                     <div class="card-body">
                         <div id="myDIV" class="mb-3">

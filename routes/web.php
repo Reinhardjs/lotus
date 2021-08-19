@@ -50,6 +50,11 @@ Route::group(['middleware' => ['get.menu']], function () {
             ],
             function () {
                 Route::get('/', 'Page@index');
+                Route::get('Data/getMainList', 'Data@getMainList');
+                Route::get('Data/getSubMainTableList/{main}', 'Data@getSubMainTableList');
+                Route::get('{any}', 'Page@main');
+                Route::get('{any}/{any2}/update', 'Page@sub_update');
+                Route::post('{any}/{any2}/process_update', 'Process@sub_main_update');
             }
         );
 

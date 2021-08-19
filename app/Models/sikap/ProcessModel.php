@@ -66,57 +66,43 @@ class ProcessModel extends Model
         return 1;
     }
 
-    public static function addTabel($main, $sub, $data_tabel)
+    public static function addTabel($id_iku, $judul_tabel, $data_tabel)
     {
         $data = array(
-            "main" => $main,
-            "sub" => $sub,
-            "januari" => $data_tabel["januari"]["Q1"] . "#" . $data_tabel["januari"]["Q2"] . "#" . $data_tabel["januari"]["Q3"] . "#" . $data_tabel["januari"]["Q4"],
-            "februari" => $data_tabel["februari"]["Q1"] . "#" . $data_tabel["februari"]["Q2"] . "#" . $data_tabel["februari"]["Q3"] . "#" . $data_tabel["februari"]["Q4"],
-            "maret" => $data_tabel["maret"]["Q1"] . "#" . $data_tabel["maret"]["Q2"] . "#" . $data_tabel["maret"]["Q3"] . "#" . $data_tabel["maret"]["Q4"],
-            "april" => $data_tabel["april"]["Q1"] . "#" . $data_tabel["april"]["Q2"] . "#" . $data_tabel["april"]["Q3"] . "#" . $data_tabel["april"]["Q4"],
-            "mei" => $data_tabel["mei"]["Q1"] . "#" . $data_tabel["mei"]["Q2"] . "#" . $data_tabel["mei"]["Q3"] . "#" . $data_tabel["mei"]["Q4"],
-            "juni" => $data_tabel["juni"]["Q1"] . "#" . $data_tabel["juni"]["Q2"] . "#" . $data_tabel["juni"]["Q3"] . "#" . $data_tabel["juni"]["Q4"],
-            "juli" => $data_tabel["juli"]["Q1"] . "#" . $data_tabel["juli"]["Q2"] . "#" . $data_tabel["juli"]["Q3"] . "#" . $data_tabel["juli"]["Q4"],
-            "agustus" => $data_tabel["agustus"]["Q1"] . "#" . $data_tabel["agustus"]["Q2"] . "#" . $data_tabel["agustus"]["Q3"] . "#" . $data_tabel["agustus"]["Q4"],
-            "september" => $data_tabel["september"]["Q1"] . "#" . $data_tabel["september"]["Q2"] . "#" . $data_tabel["september"]["Q3"] . "#" . $data_tabel["september"]["Q4"],
-            "oktober" => $data_tabel["oktober"]["Q1"] . "#" . $data_tabel["oktober"]["Q2"] . "#" . $data_tabel["oktober"]["Q3"] . "#" . $data_tabel["oktober"]["Q4"],
-            "november" => $data_tabel["november"]["Q1"] . "#" . $data_tabel["november"]["Q2"] . "#" . $data_tabel["november"]["Q3"] . "#" . $data_tabel["november"]["Q4"],
-            "desember" => $data_tabel["desember"]["Q1"] . "#" . $data_tabel["desember"]["Q2"] . "#" . $data_tabel["desember"]["Q3"] . "#" . $data_tabel["desember"]["Q4"],
+            "judul_tabel" => $judul_tabel,
+            "target" => $data_tabel["target"]["Q1"] . "#" . $data_tabel["target"]["Q2"] . "#" . $data_tabel["target"]["Q3"] . "#" . $data_tabel["target"]["Q4"],
+            "realisasi" => $data_tabel["realisasi"]["Q1"] . "#" . $data_tabel["realisasi"]["Q2"] . "#" . $data_tabel["realisasi"]["Q3"] . "#" . $data_tabel["realisasi"]["Q4"],
+            "capaian" => $data_tabel["capaian"]["Q1"] . "#" . $data_tabel["capaian"]["Q2"] . "#" . $data_tabel["capaian"]["Q3"] . "#" . $data_tabel["capaian"]["Q4"]
         );
         $inserted_id = DB::table('data_v3')->insertGetId($data);
+
+        $row = DB::table('iku')->where(array("id" => $id_iku))->first();
+
+        $main_iku = $row->main;
+
+        $data = array(
+            "id_iku" => $id_iku,
+            "id_tabel" => $inserted_id,
+            "main_iku" => $main_iku
+        );
+        DB::table('referensi_tabel')->insert($data);
 
         // returning inserted id
         return $inserted_id;
     }
 
-    public static function updateTabel($main, $sub, $data_tabel)
+    public static function updateTabel($id_iku, $judul_tabel, $data_tabel)
     {
-        $row = DB::table('data_v3')->where(array(
-            "main" => $main,
-            "sub" => $sub
-        ))->first();
-
-        if ($row == null) { // no data found in data_v3
-            return 0;
-        }
+        $row = DB::table('referensi_tabel')->where(array("id_iku" => $id_iku))->first();
 
         $data = array(
-            "januari" => $data_tabel["januari"]["Q1"] . "#" . $data_tabel["januari"]["Q2"] . "#" . $data_tabel["januari"]["Q3"] . "#" . $data_tabel["januari"]["Q4"],
-            "februari" => $data_tabel["februari"]["Q1"] . "#" . $data_tabel["februari"]["Q2"] . "#" . $data_tabel["februari"]["Q3"] . "#" . $data_tabel["februari"]["Q4"],
-            "maret" => $data_tabel["maret"]["Q1"] . "#" . $data_tabel["maret"]["Q2"] . "#" . $data_tabel["maret"]["Q3"] . "#" . $data_tabel["maret"]["Q4"],
-            "april" => $data_tabel["april"]["Q1"] . "#" . $data_tabel["april"]["Q2"] . "#" . $data_tabel["april"]["Q3"] . "#" . $data_tabel["april"]["Q4"],
-            "mei" => $data_tabel["mei"]["Q1"] . "#" . $data_tabel["mei"]["Q2"] . "#" . $data_tabel["mei"]["Q3"] . "#" . $data_tabel["mei"]["Q4"],
-            "juni" => $data_tabel["juni"]["Q1"] . "#" . $data_tabel["juni"]["Q2"] . "#" . $data_tabel["juni"]["Q3"] . "#" . $data_tabel["juni"]["Q4"],
-            "juli" => $data_tabel["juli"]["Q1"] . "#" . $data_tabel["juli"]["Q2"] . "#" . $data_tabel["juli"]["Q3"] . "#" . $data_tabel["juli"]["Q4"],
-            "agustus" => $data_tabel["agustus"]["Q1"] . "#" . $data_tabel["agustus"]["Q2"] . "#" . $data_tabel["agustus"]["Q3"] . "#" . $data_tabel["agustus"]["Q4"],
-            "september" => $data_tabel["september"]["Q1"] . "#" . $data_tabel["september"]["Q2"] . "#" . $data_tabel["september"]["Q3"] . "#" . $data_tabel["september"]["Q4"],
-            "oktober" => $data_tabel["oktober"]["Q1"] . "#" . $data_tabel["oktober"]["Q2"] . "#" . $data_tabel["oktober"]["Q3"] . "#" . $data_tabel["oktober"]["Q4"],
-            "november" => $data_tabel["november"]["Q1"] . "#" . $data_tabel["november"]["Q2"] . "#" . $data_tabel["november"]["Q3"] . "#" . $data_tabel["november"]["Q4"],
-            "desember" => $data_tabel["desember"]["Q1"] . "#" . $data_tabel["desember"]["Q2"] . "#" . $data_tabel["desember"]["Q3"] . "#" . $data_tabel["desember"]["Q4"],
+            "judul_tabel" => $judul_tabel,
+            "target" => $data_tabel["target"]["Q1"] . "#" . $data_tabel["target"]["Q2"] . "#" . $data_tabel["target"]["Q3"] . "#" . $data_tabel["target"]["Q4"],
+            "realisasi" => $data_tabel["realisasi"]["Q1"] . "#" . $data_tabel["realisasi"]["Q2"] . "#" . $data_tabel["realisasi"]["Q3"] . "#" . $data_tabel["realisasi"]["Q4"],
+            "capaian" => $data_tabel["capaian"]["Q1"] . "#" . $data_tabel["capaian"]["Q2"] . "#" . $data_tabel["capaian"]["Q3"] . "#" . $data_tabel["capaian"]["Q4"]
         );
 
-        if (DB::table('data_v3')->where(array("main" => $main, "sub" => $sub))->update($data)) {
+        if (DB::table('tabel')->where(array('id' => $row->id_tabel))->update($data)) {
             return 1;
         } else {
             return 0;

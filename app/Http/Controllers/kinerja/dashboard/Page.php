@@ -4,6 +4,7 @@ namespace App\Http\Controllers\kinerja\dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\sikap\PageModel;
+use App\Models\sikap\v2\PageModel as PageModelV2;
 
 class Page extends Controller
 {
@@ -25,7 +26,12 @@ class Page extends Controller
      */
     public function index()
     {
-        return view("sikap.v1.dashboard");
+        $data_grafik = PageModelV2::getDataGrafikV2();
+        $data = array(
+            "data_grafik" => $data_grafik
+        );
+
+        return view("sikap.v1.dashboard", $data);
     }
 
     public function main($id)

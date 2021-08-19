@@ -32,4 +32,28 @@ class Page extends Controller
 
         return view("sikap.v3.dashboard", $data);
     }
+
+    public function main($id)
+    {
+        // Read
+        $rows = PageModel::getSubs($id);
+        $data = array(
+            "rows" => $rows,
+            "main" => $id
+        );
+        return view("sikap.v3.main.sub_list", $data);
+    }
+
+    public function sub_update($main, $sub)
+    {
+        $row = PageModel::getSub($main, $sub);
+        $data_tabel = PageModel::getTabel($main, $sub);
+
+        $data = array(
+            "row" => $row,
+            "data_tabel" => $data_tabel
+        );
+
+        return view("sikap.v3.sub_main.update", $data);
+    }
 }
