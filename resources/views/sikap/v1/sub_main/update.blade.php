@@ -38,7 +38,7 @@
 
                                             <div class="form-group">
                                                 <label for="isi_sub_judul">Isi Sub Judul</label>
-                                                <input class="textarea" id="isi_sub_judul" name="isi_sub_judul" placeholder="Isi Sub Judul" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></input>
+                                                <input id="isi_sub_judul" name="isi_sub_judul" placeholder="Isi Sub Judul" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
                                             </div>
 
                                             <div class="form-group">

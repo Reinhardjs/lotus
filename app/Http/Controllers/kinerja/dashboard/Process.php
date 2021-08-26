@@ -69,12 +69,14 @@ class Process extends Controller
 		unset($_POST["id"]);
 
 		$isSuccess = ProcessModel::updateIku($_POST, $id);
-		ProcessModel::updateTabel($id, $judul_tabel, $data_tabel);
+		$isSuccess2 = ProcessModel::updateTabel($id, $judul_tabel, $data_tabel);
 		ProcessModel::updateTabelLain($id, $tabel_lain);
 
-		if ($isSuccess) {
+		if ($isSuccess || $isSuccess2) {
 			$data["success"] = true;
 			$data["message"] = "Data berhasil diubah";
+		} else {
+			$data["message"] = "Tidak ada data yang diubah";
 		}
 
 		echo json_encode($data);
