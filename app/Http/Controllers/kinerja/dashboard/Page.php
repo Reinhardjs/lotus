@@ -58,7 +58,8 @@ class Page extends Controller
 
             // Create
             $data = array("main" => $main);
-            view("sikap.v1.sub_main.create", $data);
+            return view("sikap.v1.sub_main.create", $data);
+            
         } else {
 
             // Read

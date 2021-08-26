@@ -25,8 +25,8 @@ Route::group(['middleware' => ['get.menu']], function () {
                 Route::get('Data/getMainList', 'Data@getMainList');
                 Route::get('Data/getSubMainTableList/{main}', 'Data@getSubMainTableList');
                 Route::get('{any}', 'Page@main');
-                Route::get('{any}/process_create', 'Process@sub_main_add');
-                Route::get('{any}/process_delete', 'Process@sub_main_delete');
+                Route::post('{any}/process_create', 'Process@sub_main_add');
+                Route::post('{any}/process_delete', 'Process@sub_main_delete');
                 Route::get('{any}/{any2}', 'Page@sub');
                 Route::get('{any}/{any2}/update', 'Page@sub_update');
                 Route::post('{any}/{any2}/process_update', 'Process@sub_main_update');

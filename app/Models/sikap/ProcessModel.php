@@ -74,7 +74,7 @@ class ProcessModel extends Model
             "realisasi" => $data_tabel["realisasi"]["Q1"] . "#" . $data_tabel["realisasi"]["Q2"] . "#" . $data_tabel["realisasi"]["Q3"] . "#" . $data_tabel["realisasi"]["Q4"],
             "capaian" => $data_tabel["capaian"]["Q1"] . "#" . $data_tabel["capaian"]["Q2"] . "#" . $data_tabel["capaian"]["Q3"] . "#" . $data_tabel["capaian"]["Q4"]
         );
-        $inserted_id = DB::table('data_v3')->insertGetId($data);
+        $inserted_id = DB::table('tabel')->insertGetId($data);
 
         $row = DB::table('iku')->where(array("id" => $id_iku))->first();
 
