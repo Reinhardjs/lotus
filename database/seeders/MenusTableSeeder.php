@@ -186,7 +186,7 @@ class MenusTableSeeder extends Seeder
         $this->insertLink('role1,admin', 'Kapal nelayan', '/submenu');
         $this->endDropdown();
 
-        $this->insertTitle('role2,admin', 'Seksi Kepatuhan Internal dan Penyidikan');
+        $this->insertTitle('role2,admin', 'Seksi Kepatuhan Internal dan Penyuluhan');
         $this->beginDropdown('role2,admin', 'Kinerja', 'cil-pencil');
         $this->insertLink('role2,admin', 'Dashboard', '/kinerja/dashboard');
         $this->insertLink('role2,admin', 'Indikator Kerja Utama', '/kinerja/indikator_kerja_utama');
